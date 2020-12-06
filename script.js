@@ -2,9 +2,8 @@ let curWin = "";
 
 let minShrinkHeight = 60;
 let prefix = "A club for&nbsp;";
-//TODO: set backgrouhd to dispklay none when tab is clicked
-//TODO: chang tab color after clicked
-let words = ["", "coders", "innovators", "developers", "dreamers", "everyone"]; //TODO: 
+
+let words = ["", "coders", "innovators", "developers", "dreamers", "everyone"]; //TODO: maybe make these better
 window.onload = async () => {
 
     textFit($(".title.main")[0]);
@@ -12,25 +11,39 @@ window.onload = async () => {
     await wait(50);
     $("#word .textFitted").css("width", "auto");
     $("#word .textFitted").css("border-right", "1ch solid rgb(122, 122, 122)");
+
     $("#close").click(() => {
-        $("#aboutWindow").css("opacity", 0);
+        $(".window").css("opacity", 0);
         setTimeout(() => {
-            $("#aboutWindow").css("display", "none")
+            $(".window").css("display", "none")
         }, 500);
     })
     $("#about").click(() => {
-        $("#aboutWindow").css("display", "block");
+
+        $(".window").css("display", "block");
         setTimeout(() => {
-            $("#aboutWindow").css("opacity", 1)
+            $(".window").css("opacity", 1)
         }, 10);
     })
+
+    $(".tab").hover((el) => {
+        updateTabUnderline();
+        if (el.type == "mouseenter") {
+            el.target.classList.add("active");
+        }
+    });
     $(".tab").click(async (e) => {
-        let name = e.target.innerHTML.replace("?", "");
+
+        $(".splash").css("display", "none");
+
+        let name = e.target.id;
         if (name != curWin) {
+
             $("#actualContent").load("/pages/" + name + ".html", coolAnimation);
-            curWin = name;
-            await wait(10);
-            $("#actualContent").css('margin-top', minShrinkHeight + 'px'); //TODO: Remove animation for this very blinding
+            curWin = e.target.id;
+            await wait(100);
+            updateTabUnderline();
+            $("#actualContent").css('margin-top', minShrinkHeight + 'px');
             $("html, body").animate({ scrollTop: 0 }, 0);
         }
     });
@@ -39,13 +52,14 @@ window.onload = async () => {
     })
     $(".home").click(() => {
 
+        $(".splash").css("display", "block");
 
         $("#actualContent").load("/pages/home.html", coolAnimation);
         $("#actualContent").css('margin-top', "100vh");
         $("html, body").animate({ scrollTop: "0" }, "fast");
-        updateTabs();
         curWin = "home";
-
+        updateTabs();
+        updateTabUnderline();
 
     });
 
@@ -75,10 +89,13 @@ window.onload = async () => {
     }
 
 }
+function updateTabUnderline() {
+    $(".tab").removeClass("active");
+    $("#" + curWin).addClass("active");
+}
 async function updateTabs() {
-    // .removeAttr('style');
-    // 70 is hardcoded TODO:
-    if (getTop("#actualContent") <= getTop(".main")) {
+
+    if (getTop("#actualContent") <= getTop(".main") || $(".splash")[0].style.display == "none") {
         if (getTop("#actualContent") <= minShrinkHeight) {
             $(".home").css("font-size", "20px");
 
@@ -95,7 +112,7 @@ async function updateTabs() {
         $(".home").css("pointer-events", "all");
 
     } else {
-        clear(true);
+        clear();
     }
     $("#about").removeAttr('style');
 
