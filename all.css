@@ -66,6 +66,8 @@ header.splash{
     font-size: 30px;
     opacity: 0;
     cursor: pointer;
+    display: none;
+    transition: .5s all;
 }
 .tab-container.right {
     display: flex;
@@ -81,7 +83,7 @@ header.splash{
     min-height: 100vh;
     margin-top: 100vh;
     background: white;
-    animation: none;
+    transition: none;
     
 }
 
@@ -112,6 +114,9 @@ header.splash{
     margin: 0 10px;
     opacity: 0;
     color:white;
+}
+.tab{
+    display: none;
 }
 .button *{
     transition: none;

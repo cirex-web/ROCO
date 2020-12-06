@@ -2,11 +2,9 @@ let curWin = "";
 
 let minShrinkHeight = 60;
 let prefix = "A club for&nbsp;";
-//TODO: All buttons still hoverable even though it's hidden
 //TODO: Please enable js
 //TODO: set backgrouhd to dispklay none when tab is clicked
 //TODO: chang tab color after clicked
-//TODO: Cursor disappears after a while
 let words = ["","coders", "innovators", "developers", "dreamers", "everyone"]; //TODO: 
 window.onload = async () => {
 
@@ -30,7 +28,7 @@ window.onload = async () => {
     $(".tab").click(async (e) => {
         let name = e.target.innerHTML.replace("?", "");
         if (name != curWin) {
-            $("#actualContent").load(name + ".html", coolAnimation);
+            $("#actualContent").load("/pages/"+name + ".html", coolAnimation);
             curWin = name;
             await wait(10);
             $("#actualContent").css('margin-top', minShrinkHeight + 'px'); //TODO: Remove animation for this very blinding
@@ -43,7 +41,7 @@ window.onload = async () => {
     $(".home").click(() => {
 
 
-        $("#actualContent").load("home.html", coolAnimation);
+        $("#actualContent").load("/pages/home.html", coolAnimation);
         $("#actualContent").css('margin-top', "100vh");
         $("html, body").animate({ scrollTop: "0" }, "fast");
         updateTabs();
@@ -59,7 +57,7 @@ window.onload = async () => {
         let word = words[i];
         for (let j = 0; j <= word.length; j++) {
             $("#word .textFitted").html(prefix+word.substring(0, j));
-            await wait(100);
+            await wait(100*Math.random());
         }
         let int = setInterval(blink, 500);
 
@@ -67,6 +65,8 @@ window.onload = async () => {
         
         clearInterval(int);
         // $("#word").html(" ");
+        $("#word .textFitted").css("border-right","1ch solid rgb(122, 122, 122)");
+
         for (let j = word.length; j >= 0; j--) {
             $("#word .textFitted").html(prefix+word.substring(0, j));
             await wait(30);
@@ -76,31 +76,40 @@ window.onload = async () => {
     }
 
 }
-function updateTabs() {
+async function updateTabs() {
     // .removeAttr('style');
     // 70 is hardcoded TODO:
     if (getTop("#actualContent") <= getTop(".main")) {
-        if ((dif = getTop("#actualContent")) <= minShrinkHeight) {
+        if (getTop("#actualContent") <= minShrinkHeight) {
+            $(".tab").css("display", "block");
+            $(".home").css("display", "block");
+
+            await wait(10);
             $(".tab").css("opacity", 1);
             $(".tab").css("font-size", '20px');
-
-            $(".home").css("font-size", "20px");
             $(".top").css("height", minShrinkHeight + "px");
+
+            $(".home").css("opacity", 1);
+            $(".home").css("font-size", "20px");
         } else {
             clear();
         }
-        $(".home").css("opacity", 1);
+
     } else {
-        clear();
-        $(".home").css("opacity", 0);
+        clear(true);
     }
     $("#about").removeAttr('style');
 
 
 }
-function clear() {
-    $(".tab").removeAttr('style');
-    $(".home").removeAttr('style');
+function clear(everything = false) {
+    $(".tab").css("opacity", 0);
+    $(".home").css("opacity", 0);
+
+    if(everything){
+        $(".tab").removeAttr('style');
+        $(".home").removeAttr('style');
+    }
     $(".top").removeAttr('style');
 }
 function blink() {
