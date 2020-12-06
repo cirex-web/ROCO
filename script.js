@@ -2,7 +2,6 @@ let curWin = "";
 
 let minShrinkHeight = 60;
 let prefix = "A club for&nbsp;";
-//TODO: Please enable js
 //TODO: set backgrouhd to dispklay none when tab is clicked
 //TODO: chang tab color after clicked
 let words = ["", "coders", "innovators", "developers", "dreamers", "everyone"]; //TODO: 
