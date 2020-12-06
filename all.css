@@ -66,7 +66,6 @@ header.splash{
     font-size: 30px;
     opacity: 0;
     cursor: pointer;
-    display: none;
     transition: .5s all;
 }
 .tab-container.right {
@@ -115,8 +114,8 @@ header.splash{
     opacity: 0;
     color:white;
 }
-.tab{
-    display: none;
+.tab, .home{
+    pointer-events:none;
 }
 .button *{
     transition: none;

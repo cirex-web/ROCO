@@ -5,38 +5,38 @@ let prefix = "A club for&nbsp;";
 //TODO: Please enable js
 //TODO: set backgrouhd to dispklay none when tab is clicked
 //TODO: chang tab color after clicked
-let words = ["","coders", "innovators", "developers", "dreamers", "everyone"]; //TODO: 
+let words = ["", "coders", "innovators", "developers", "dreamers", "everyone"]; //TODO: 
 window.onload = async () => {
 
     textFit($(".title.main")[0]);
     textFit($("#word")[0]);
     await wait(50);
-    $("#word .textFitted").css("width","auto");
-    $("#word .textFitted").css("border-right","1ch solid rgb(122, 122, 122)");
-    $("#close").click(()=>{
-        $("#aboutWindow").css("opacity",0);
-        setTimeout(()=>{
-            $("#aboutWindow").css("display","none")
-        },500);
+    $("#word .textFitted").css("width", "auto");
+    $("#word .textFitted").css("border-right", "1ch solid rgb(122, 122, 122)");
+    $("#close").click(() => {
+        $("#aboutWindow").css("opacity", 0);
+        setTimeout(() => {
+            $("#aboutWindow").css("display", "none")
+        }, 500);
     })
-    $("#about").click(()=>{
-        $("#aboutWindow").css("display","block");
-        setTimeout(()=>{
-            $("#aboutWindow").css("opacity",1)
-        },10);
+    $("#about").click(() => {
+        $("#aboutWindow").css("display", "block");
+        setTimeout(() => {
+            $("#aboutWindow").css("opacity", 1)
+        }, 10);
     })
     $(".tab").click(async (e) => {
         let name = e.target.innerHTML.replace("?", "");
         if (name != curWin) {
-            $("#actualContent").load("/pages/"+name + ".html", coolAnimation);
+            $("#actualContent").load("/pages/" + name + ".html", coolAnimation);
             curWin = name;
             await wait(10);
             $("#actualContent").css('margin-top', minShrinkHeight + 'px'); //TODO: Remove animation for this very blinding
             $("html, body").animate({ scrollTop: 0 }, 0);
         }
     });
-    $("#arrow").click(()=>{
-        $("html, body").animate({ scrollTop: $(window).height()}, "slow");
+    $("#arrow").click(() => {
+        $("html, body").animate({ scrollTop: $(window).height() }, "slow");
     })
     $(".home").click(() => {
 
@@ -56,19 +56,19 @@ window.onload = async () => {
     for (let i = 0; ; i = (i + 1) % words.length) {
         let word = words[i];
         for (let j = 0; j <= word.length; j++) {
-            $("#word .textFitted").html(prefix+word.substring(0, j));
-            await wait(100*Math.random());
+            $("#word .textFitted").html(prefix + word.substring(0, j));
+            await wait(100 * Math.random());
         }
         let int = setInterval(blink, 500);
 
         await wait(2000);
-        
+
         clearInterval(int);
         // $("#word").html(" ");
-        $("#word .textFitted").css("border-right","1ch solid rgb(122, 122, 122)");
+        $("#word .textFitted").css("border-right", "1ch solid rgb(122, 122, 122)");
 
         for (let j = word.length; j >= 0; j--) {
-            $("#word .textFitted").html(prefix+word.substring(0, j));
+            $("#word .textFitted").html(prefix + word.substring(0, j));
             await wait(30);
         }
         await wait(500);
@@ -81,19 +81,19 @@ async function updateTabs() {
     // 70 is hardcoded TODO:
     if (getTop("#actualContent") <= getTop(".main")) {
         if (getTop("#actualContent") <= minShrinkHeight) {
-            $(".tab").css("display", "block");
-            $(".home").css("display", "block");
+            $(".home").css("font-size", "20px");
 
-            await wait(10);
             $(".tab").css("opacity", 1);
+            $(".tab").css("pointer-events", "all");
             $(".tab").css("font-size", '20px');
+
             $(".top").css("height", minShrinkHeight + "px");
 
-            $(".home").css("opacity", 1);
-            $(".home").css("font-size", "20px");
         } else {
             clear();
         }
+        $(".home").css("opacity", 1);
+        $(".home").css("pointer-events", "all");
 
     } else {
         clear(true);
@@ -102,14 +102,14 @@ async function updateTabs() {
 
 
 }
-function clear(everything = false) {
+function clear() {
+    console.log("clearning");
     $(".tab").css("opacity", 0);
     $(".home").css("opacity", 0);
 
-    if(everything){
-        $(".tab").removeAttr('style');
-        $(".home").removeAttr('style');
-    }
+
+    $(".tab").removeAttr('style');
+    $(".home").removeAttr('style');
     $(".top").removeAttr('style');
 }
 function blink() {
