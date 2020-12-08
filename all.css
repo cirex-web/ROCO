@@ -48,6 +48,7 @@ h3{
     margin-top: 0px;
 }
 
+
 p{
     text-align: left;
     font-size: 20px;
@@ -55,8 +56,14 @@ p{
 span{
     font-size: 30px;
 }
-img{
-    margin: auto 30px;
+img{ 
+    
+    margin: auto 30px; 
+    pointer-events: none;
+}
+iframe{
+    width: 0px;
+    height: 0px;
 }
 h3.small{
     font-size: 25px;
@@ -86,7 +93,9 @@ header.top.about{
     background: transparent;
 }
 header.splash{
-    background-image: url("https://upload.wikimedia.org/wikipedia/commons/4/49/Curvature_of_the_Earth.png");
+    background-color: black;
+    
+    /* background-image: url(""); */
     /* background-size: cover; */
     /* https://www.caddmicrosystems.com/blog/wp-content/uploads/2017/09/earth-curvature.jpg */ 
     background-repeat: no-repeat;
@@ -168,6 +177,7 @@ header.splash{
 }
 .tab, .home{
     pointer-events:none;
+    text-decoration: none;
 }
 .button *{
     transition: none;
@@ -257,6 +267,16 @@ header.splash{
     left: 10%;
     position: absolute;
     float: left;
+}
+#splash-background{
+    margin: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 150vh;
+    width: auto;
+    object-fit: cover;
+    transition: none;
 }
 #arrow{
     background-color: transparent;
