@@ -3,7 +3,7 @@ let curWin = "";
 let minShrinkHeight = 60;
 let prefix = "A club for&nbsp;";
 
-let words = ["", "coders", "innovators", "developers", "dreamers", "everyone"]; //TODO: maybe make these better
+let words = ["", "coders", "innovators", "aspiring developers", "dreamers", "everyone"]; //TODO: maybe make these better
 window.onload = async () => {
 
     textFit($(".title.main")[0]);
@@ -56,7 +56,7 @@ window.onload = async () => {
 
         $("#actualContent").load("/pages/home.html", coolAnimation);
         $("#actualContent").css('margin-top', "100vh");
-        $("html, body").animate({ scrollTop: "0" }, "fast");
+        $("html, body").animate({ scrollTop: $(window).height() }, "fast"); //TODO: change to 0
         curWin = "home";
         updateTabs();
         updateTabUnderline();
