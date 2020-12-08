@@ -15,10 +15,12 @@ header {
     position: fixed;
     z-index: -1;
     transition: .5s all;
-}h
+}
 
 body {
+    opacity: 0;
     margin: 0px;
+    transition: 1s all;
 }
 header *{
     transition: .5s all;
@@ -88,6 +90,7 @@ header.top {
     background-color: black;
     height: 70px;
     z-index: 2;
+    transition: none;
 }
 header.top.about{
     background: transparent;
@@ -110,6 +113,7 @@ header.splash{
     opacity: 0;
     cursor: pointer;
     transition: .5s all;
+    color:white;
 }
 .tab-container.right {
     display: flex;

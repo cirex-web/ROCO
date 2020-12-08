@@ -6,11 +6,11 @@ let prefix = "A club for&nbsp;";
 let words = ["", "coders", "innovators", "aspiring developers", "dreamers", "everyone"]; //TODO: maybe make these better
 let subPage = "pages/"
 window.onload = async () => {
-    if(document.location.host.toString().includes("github")){
-        subPage = document.location.pathname.toString().split("/")[0]+subPage;
+    if (document.location.host.toString().includes("github")) {
+        subPage = document.location.pathname.toString().split("/")[0] + subPage;
     }
-    if(!window.location.hash){
-        window.location.hash='home';
+    if (!window.location.hash) {
+        window.location.hash = 'home';
     }
     changeTab();
     $(".home").click(changeTab);
@@ -48,15 +48,23 @@ window.onload = async () => {
         $("html, body").animate({ scrollTop: $(window).height() }, "slow");
     });
 
-    $(window).scroll(()=>{
+    $(window).scroll(() => {
         updateTabs();
-        let move = Math.min($(window).height(),$(window).scrollTop());
-        $("#splash-background").css("opacity",1-(move/$(window).height()));
+        let move = Math.min($(window).height(), $(window).scrollTop());
+        $("#splash-background").css("opacity", 1 - (move / $(window).height()));
 
-        move/=5;
+        move /= 5;
 
-        $("#splash-background").css("transform","translate(0,-"+move+"px)");
+        $("#splash-background").css("transform", "translate(0,-" + move + "px)");
     });
+
+    setTimeout(() => {
+        
+        $("body").css("opacity", 1);
+
+    }, 10);
+
+
 
     for (let i = 0; ; i = (i + 1) % words.length) {
         let word = words[i];
@@ -83,24 +91,24 @@ window.onload = async () => {
 }
 function updateTabUnderline() {
     $(".tab").removeClass("active");
-    $("[href=\"#!" + curWin+"\"]").addClass("active");
+    $("[href=\"#!" + curWin + "\"]").addClass("active");
 }
-async function changeTab(){
-    let name = window.location.hash.replace("#!","");
-    console.log("changing to "+name);
-    
+async function changeTab() {
+    let name = window.location.hash.replace("#!", "");
+    console.log("changing to " + name);
+
     $("#actualContent").load(subPage + name + ".html", coolAnimation);
     curWin = name;
     await wait(100);
 
-    if(name=='home'){
+    if (name == 'home') {
         $(".splash").css("display", "block");
         $("#actualContent").css('margin-top', "100vh");
         $("html, body").animate({ scrollTop: 0 }, "fast"); //TODO: change to 0    
-    }else{
-        $(".splash").css("display", "none"); 
+    } else {
+        $(".splash").css("display", "none");
         $("#actualContent").css('margin-top', minShrinkHeight + 'px');
-        $("html, body").animate({ scrollTop: 0 }, 0);    
+        $("html, body").animate({ scrollTop: 0 }, 0);
     }
     updateTabUnderline();
     updateTabs();
@@ -130,11 +138,11 @@ async function updateTabs() {
 
 
 }
-function setUpPage(){
+function setUpPage() {
     console.log(window.location.hash);
 }
 function clear() {
-    console.log("clearning");
+    console.log("running");
     $(".tab").css("opacity", 0);
     $(".home").css("opacity", 0);
 
