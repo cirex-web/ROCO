@@ -4,8 +4,11 @@ let minShrinkHeight = 60;
 let prefix = "A club for&nbsp;";
 //TODO: get rid of weird glitch when user reloads page
 let words = ["", "coders", "innovators", "aspiring developers", "dreamers", "everyone"]; //TODO: maybe make these better
+let subPage = "pages/"
 window.onload = async () => {
-
+    if(document.location.host.toString().includes("github")){
+        subPage = document.location.pathname.toString().split("/")[0]+subPage;
+    }
     if(!window.location.hash){
         window.location.hash='home';
     }
@@ -85,7 +88,8 @@ function updateTabUnderline() {
 async function changeTab(){
     let name = window.location.hash.replace("#!","");
     console.log("changing to "+name);
-    $("#actualContent").load("/pages/" + name + ".html", coolAnimation);
+    
+    $("#actualContent").load(subPage + name + ".html", coolAnimation);
     curWin = name;
     await wait(100);
 
