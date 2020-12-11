@@ -18,7 +18,6 @@ header {
 }
 
 body {
-    opacity: 0;
     margin: 0px;
     transition: 1s all;
 }
@@ -45,7 +44,7 @@ h3{
     font-size: 50px;
     font-weight: 100;
     text-align: left;
-    font-family: 'monospace';
+    font-family: "Proxima Nova",sans-serif;
     margin-bottom: 20px;
     margin-top: 0px;
 }
@@ -73,6 +72,7 @@ h3.small{
 }
 .centered{
     text-align: center;
+    margin: 30px;
 }
 .title.title-border{
     text-align: center;
@@ -238,17 +238,33 @@ header.splash{
 }
 /* huh */
 
-.johnny {
-    height: auto;
-    max-width: 50%;
-    /* margin: 0; */
+.image-filled {
+
+    object-fit: cover;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+.image-container{
+    flex: 0 0 40%;
+    overflow: hidden;
+}
+.image-container.left{
+    margin-right: 20px;
+}
+.image-container.right{
+    margin-left: 20px;
+}
+.splash-text{
+    opacity: 0;
+    transition: 1s all;
+    transform: translate(100px, 0px);
 }
 
 /* IDs */
 
 #word{
     padding-right: 1px;
-    transition: none;
     height: 50px;
     width: 90vw;
 }
@@ -303,3 +319,4 @@ header.splash{
 
     font-size: 20px;
 } */
+

@@ -2,70 +2,47 @@ let curWin = "";
 
 let minShrinkHeight = 60;
 let prefix = "A club for&nbsp;";
-//TODO: get rid of weird glitch when user reloads page
+//TODO: fix title butotn alignment
+//TODO: add rickroll
+//TODO: fix background
 let words = ["", "coders", "innovators", "aspiring developers", "dreamers", "everyone"]; //TODO: maybe make these better
 let subPage = "pages/"
-window.onload = async () => {
+$(document).ready(async () => {
     if (document.location.host.toString().includes("github")) {
         subPage = document.location.pathname.toString().split("/")[0] + subPage;
     }
     if (!window.location.hash) {
-        window.location.hash = 'home';
+        window.location.hash = '!home';
     }
     changeTab();
     $(".home").click(changeTab);
-    $(window).on('hashchange', changeTab); //TODO: condense this?
-
+    $(window).on('hashchange', changeTab); 
+    
     textFit($(".title.main")[0]);
     textFit($("#word")[0]);
     await wait(50);
     $("#word .textFitted").css("width", "auto");
     $("#word .textFitted").css("border-right", "1ch solid rgb(122, 122, 122)");
 
-    $("#close").click(() => {
-        $(".window").css("opacity", 0);
-        setTimeout(() => {
-            $(".window").css("display", "none")
-        }, 500);
-    });
-    $("#about").click(() => {
-
-        $(".window").css("display", "block");
-        setTimeout(() => {
-            $(".window").css("opacity", 1)
-        }, 10);
-    });
-
-    $(".tab").hover((el) => {
-        updateTabUnderline();
-        if (el.type == "mouseenter") {
-            el.target.classList.add("active");
-        }
-    });
-
-
-    $("#arrow").click(() => {
-        $("html, body").animate({ scrollTop: $(window).height() }, "slow");
-    });
+    $(".splash-text").css("opacity",1);
+    $(".splash-text").css("transform","none");
 
     $(window).scroll(() => {
         updateTabs();
         let move = Math.min($(window).height(), $(window).scrollTop());
-        $("#splash-background").css("opacity", 1 - (move / $(window).height()));
+        let opacity = 1 - (move / $(window).height());
+        $("#splash-background").css("opacity", opacity);
+        $(".textFitted").css("opacity",opacity);
 
         move /= 5;
-
-        $("#splash-background").css("transform", "translate(0,-" + move + "px)");
+        // $("#splash-background").css("transform", "translate(0,-" + move + "px)");
     });
 
-    setTimeout(() => {
-        
-        $("body").css("opacity", 1);
+    configureMouseActions();
+    beginText();
 
-    }, 10);
-
-
-
+});
+async function beginText(){
     for (let i = 0; ; i = (i + 1) % words.length) {
         let word = words[i];
         for (let j = 0; j <= word.length; j++) {
@@ -87,6 +64,32 @@ window.onload = async () => {
         await wait(500);
 
     }
+}
+function configureMouseActions(){
+    $("#close").click(() => {
+        $(".window").css("opacity", 0);
+        setTimeout(() => {
+            $(".window").css("display", "none")
+        }, 500);
+    });
+    $("#about").click(() => {
+
+        $(".window").css("display", "block");
+        setTimeout(() => {
+            $(".window").css("opacity", 1)
+        }, 10);
+    });
+
+    $(".tab").hover((el) => {
+        updateTabUnderline();
+        if (el.type == "mouseenter") {
+            el.target.classList.add("active");
+        }
+    });
+
+    $("#arrow").click(() => {
+        $("html, body").animate({ scrollTop: $(window).height() }, "slow");
+    });
 
 }
 function updateTabUnderline() {
@@ -96,7 +99,7 @@ function updateTabUnderline() {
 async function changeTab() {
     let name = window.location.hash.replace("#!", "");
     console.log("changing to " + name);
-
+    console.log(subPage + name + ".html");
     $("#actualContent").load(subPage + name + ".html", coolAnimation);
     curWin = name;
     await wait(100);
@@ -104,7 +107,7 @@ async function changeTab() {
     if (name == 'home') {
         $(".splash").css("display", "block");
         $("#actualContent").css('margin-top', "100vh");
-        $("html, body").animate({ scrollTop: 0 }, "fast"); //TODO: change to 0    
+        $("html, body").animate({ scrollTop: 0 }, "fast");    
     } else {
         $(".splash").css("display", "none");
         $("#actualContent").css('margin-top', minShrinkHeight + 'px');
@@ -138,9 +141,7 @@ async function updateTabs() {
 
 
 }
-function setUpPage() {
-    console.log(window.location.hash);
-}
+
 function clear() {
     console.log("running");
     $(".tab").css("opacity", 0);
