@@ -117,7 +117,7 @@ async function changeTab() {
     updateTabs();
 }
 async function updateTabs() {
-
+    console.log(getTop("#actualContent"));
     if (getTop("#actualContent") <= getTop(".main") || $(".splash")[0].style.display == "none") {
         if (getTop("#actualContent") <= minShrinkHeight) {
             $(".home").css("font-size", "20px");
@@ -125,7 +125,6 @@ async function updateTabs() {
             $(".tab").css("opacity", 1);
             $(".tab").css("pointer-events", "all");
             $(".tab").css("font-size", '20px');
-
             $(".top").css("height", minShrinkHeight + "px");
 
         } else {

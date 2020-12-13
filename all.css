@@ -21,6 +21,9 @@ body {
     margin: 0px;
     transition: 1s all;
 }
+body::-webkit-scrollbar {
+    display: none;
+}
 header *{
     transition: .5s all;
 }
@@ -62,9 +65,19 @@ img{
     margin: auto 30px; 
     pointer-events: none;
 }
-iframe{
+.centered{
+    text-align: center;
+}
+.bottom-margin{
+    margin-bottom: 40px;
+}
+.vid-why{
     width: 0px;
     height: 0px;
+}
+a{
+    display: flex;
+    align-items: center;
 }
 h3.small{
     font-size: 25px;
@@ -99,7 +112,7 @@ header.splash{
     background-color: black;
     
     /* background-image: url(""); */
-    /* background-size: cover; */
+    /* background-size:contain; */
     /* https://www.caddmicrosystems.com/blog/wp-content/uploads/2017/09/earth-curvature.jpg */ 
     background-repeat: no-repeat;
 }
@@ -164,21 +177,23 @@ header.splash{
 .tab::after{
     transition: .4s all;
     bottom: 0;
-    right: 0;
+    left: 0;
     transform: translate(0,5px);
     content: "";
-    background: black;
-    width: 100%;
+    background: white;
+    width: 0%;
     height: 5px;
-    display: block;
+    /* opacity: 0; */
+    visibility: hidden;
     position: absolute;
 }
+
 .tab.active::after{
-    width: 0%;
+    visibility:visible;
+    opacity: 1;
+    width: 100%;
 }
-.tab{
-    border-bottom: 5px solid white;
-}
+
 .tab, .home{
     pointer-events:none;
     text-decoration: none;
@@ -212,10 +227,17 @@ header.splash{
     margin: 50px 30px;
     /* background: white; */
     display: flex;
+    flex-wrap: wrap;
 
 }
 .container.full{
     height: 100vh;
+}
+.container.half{
+    height: 50vh;
+}
+.container.gray{
+    background-color: rgb(187, 187, 187);
 }
 .window{
     
@@ -238,16 +260,33 @@ header.splash{
 }
 /* huh */
 
+.johnny {
+
+    object-fit: cover;
+    margin: 0;
+    width: 50%;
+    height: 50%;
+}
+
 .image-filled {
 
     object-fit: cover;
     margin: 0;
     width: 100%;
     height: 100%;
+    
 }
 .image-container{
-    flex: 0 0 40%;
+    flex: 1 0 40vw;
     overflow: hidden;
+    min-width: 300px;
+    max-height: 50vh;
+    display: block;
+
+}
+.text-container{
+    width: 50vw;
+    flex-grow: 1;
 }
 .image-container.left{
     margin-right: 20px;
@@ -255,10 +294,33 @@ header.splash{
 .image-container.right{
     margin-left: 20px;
 }
+.tile{
+    flex:1 1;
+    height: 100px;
+    margin: 0 30px;
+    font-size: 30px;
+    transition: .25s all;
+    /* background: white; */
+}
+.tile:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+}
+.tile-container{
+    display: flex;
+    /* width: 90vw; */
+    text-align: left;
+}
+.fas, .far{
+    font-size: 50px;
+}
 .splash-text{
     opacity: 0;
     transition: 1s all;
     transform: translate(100px, 0px);
+}
+.desc-text{
+    font-size: 30px;
 }
 
 /* IDs */
@@ -306,8 +368,8 @@ header.splash{
     left: 50%;
     bottom: 60px;
     transform: translate(-50%,0) rotate(-45deg);
-    border-bottom: 5px solid black;
-    border-left: 5px solid black;
+    border-bottom: 5px solid white;
+    border-left: 5px solid white;
     transition: .3s all;
 }
 #arrow:hover{
