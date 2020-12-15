@@ -169,7 +169,6 @@ function getBottom(identifier) {
 async function coolAnimation() {
     $(".container").css("opacity", 0);
     let c = $(".container");
-    console.log(c);
     for (let i = 0; i < c.length; i++) {
         await wait(100);
 

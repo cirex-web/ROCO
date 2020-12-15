@@ -50,8 +50,14 @@ h3{
     font-family: "Proxima Nova",sans-serif;
     margin-bottom: 20px;
     margin-top: 0px;
+    line-height: normal;
 }
-
+h4{
+    font-size: 30px;
+    font-weight: 200;
+    margin: 0 20px;
+    text-align: center;
+}
 
 p{
     text-align: left;
@@ -65,6 +71,12 @@ img{
     margin: auto 30px; 
     pointer-events: none;
 }
+disclaimer{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transform: translate(0px, 100%);
+}
 .centered{
     text-align: center;
 }
@@ -76,7 +88,7 @@ img{
     height: 0px;
 }
 a{
-    display: flex;
+    /* display: flex; */
     align-items: center;
 }
 h3.small{
@@ -104,15 +116,15 @@ header.top {
     height: 70px;
     z-index: 2;
     transition: none;
-}
+} 
 header.top.about{
     background: transparent;
 }
 header.splash{
     background-color: black;
-    
+    background-image: url("https://upload.wikimedia.org/wikipedia/commons/4/49/Curvature_of_the_Earth.png");
     /* background-image: url(""); */
-    /* background-size:contain; */
+    /* background-size:cover; */
     /* https://www.caddmicrosystems.com/blog/wp-content/uploads/2017/09/earth-curvature.jpg */ 
     background-repeat: no-repeat;
 }
@@ -223,13 +235,28 @@ header.splash{
     /* box-shadow: 5px 5px 10px white; */
 }
 .container-content{
-    
+    font-family: "segoe UI";
     margin: 50px 30px;
     /* background: white; */
     display: flex;
     flex-wrap: wrap;
-
+    align-items: center;
 }
+
+.biggify {
+    font-size: 30px;
+    color: #3785b6;
+    width: 50vw;
+    flex-grow: 1;
+    font-family: "candara";
+    justify-content: center;
+}
+.image{
+    max-width: 100%;
+    height: 50vh;
+}
+
+
 .container.full{
     height: 100vh;
 }
@@ -276,17 +303,35 @@ header.splash{
     height: 100%;
     
 }
+.image-filled.height-seen{
+    width: auto;
+}
 .image-container{
     flex: 1 0 40vw;
     overflow: hidden;
     min-width: 300px;
-    max-height: 50vh;
+    max-width: 45vw;
+    max-height: 60vh;
     display: block;
-
+    
+}
+.image-container.height-seen{
+    flex-basis: 1px;
+    /* hvac: heating and cooling; */
+    /* :| */
 }
 .text-container{
-    width: 50vw;
-    flex-grow: 1;
+    line-height: 35px;
+    /* width: 50vw; */
+    position: relative;
+    flex: 1 1;
+    /* flex: 1 1 2 3 5 8 13 21 34 as n --> 3, fib-->big */
+}
+.text-container.wide{
+    width: 90vw;
+}
+.spice{
+    color: rgb();
 }
 .image-container.left{
     margin-right: 20px;
@@ -318,9 +363,6 @@ header.splash{
     opacity: 0;
     transition: 1s all;
     transform: translate(100px, 0px);
-}
-.desc-text{
-    font-size: 30px;
 }
 
 /* IDs */
@@ -372,6 +414,7 @@ header.splash{
     border-left: 5px solid white;
     transition: .3s all;
 }
+
 #arrow:hover{
     cursor: pointer;
     border-color: gray;
