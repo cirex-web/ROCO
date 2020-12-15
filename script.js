@@ -2,9 +2,7 @@ let curWin = "";
 
 let minShrinkHeight = 60;
 let prefix = "A club for&nbsp;";
-//TODO: fix title butotn alignment
-//TODO: add rickroll
-//TODO: fix background
+
 let words = ["", "coders", "innovators", "aspiring developers", "dreamers", "everyone"]; //TODO: maybe make these better
 let subPage = "pages/"
 $(document).ready(async () => {
