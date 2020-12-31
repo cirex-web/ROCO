@@ -4,7 +4,8 @@ let minShrinkHeight = 60;
 let prefix = "A club for&nbsp;";
 
 let words = ["", "coders", "innovators", "aspiring developers", "dreamers", "everyone"]; //TODO: maybe make these better
-let subPage = "pages/"
+let subPage = "pages/";
+let nextContainer = 0;
 $(document).ready(async () => {
     if (document.location.host.toString().includes("github")) {
         subPage = document.location.pathname.toString().split("/")[0] + subPage;
@@ -26,13 +27,8 @@ $(document).ready(async () => {
     $(".splash-text").css("transform","none");
 
     $(window).scroll(() => {
-        updateTabs();
-        let move = Math.min($(window).height(), $(window).scrollTop());
-        let opacity = 1 - (move / $(window).height());
-        $("#splash-background").css("opacity", opacity);
-        $(".textFitted").css("opacity",opacity);
-
-        move /= 5;
+        adjustToScroll();
+        // move /= 5;
         // $("#splash-background").css("transform", "translate(0,-" + move + "px)");
     });
 
@@ -40,6 +36,23 @@ $(document).ready(async () => {
     beginText();
 
 });
+function adjustToScroll(){
+
+    updateTabs();
+    let move = Math.min($(window).height(), $(window).scrollTop());
+    let opacity = 1 - (move / $(window).height());
+    $("#splash-background").css("opacity", opacity);
+    $(".textFitted").css("opacity",opacity);
+
+    if(nextContainer!=-1&&getTop(".container",nextContainer)<=.75*$(window).height()){
+        showContainer(nextContainer);
+        nextContainer++;
+        if(nextContainer==$(".container").length){
+            nextContainer = -1;
+        }
+        adjustToScroll();
+    }
+}
 async function beginText(){
     for (let i = 0; ; i = (i + 1) % words.length) {
         let word = words[i];
@@ -95,29 +108,29 @@ function updateTabUnderline() {
     $("[href=\"#!" + curWin + "\"]").addClass("active");
 }
 async function changeTab() {
+    nextContainer = 0;
     let name = window.location.hash.replace("#!", "");
     console.log("changing to " + name);
     console.log(subPage + name + ".html");
-    $("#actualContent").load(subPage + name + ".html", coolAnimation);
+    $("#actual-content").load(subPage + name + ".html");
     curWin = name;
     await wait(100);
 
     if (name == 'home') {
         $(".splash").css("display", "block");
-        $("#actualContent").css('margin-top', "100vh");
+        $("#actual-content").css('margin-top', "100vh");
         $("html, body").animate({ scrollTop: 0 }, "fast");    
     } else {
         $(".splash").css("display", "none");
-        $("#actualContent").css('margin-top', minShrinkHeight + 'px');
+        $("#actual-content").css('margin-top', minShrinkHeight + 'px');
         $("html, body").animate({ scrollTop: 0 }, 0);
     }
     updateTabUnderline();
-    updateTabs();
+    adjustToScroll();
 }
 async function updateTabs() {
-    console.log(getTop("#actualContent"));
-    if (getTop("#actualContent") <= getTop(".main") || $(".splash")[0].style.display == "none") {
-        if (getTop("#actualContent") <= minShrinkHeight) {
+    if (getTop("#actual-content") <= getTop(".main") || $(".splash")[0].style.display == "none") {
+        if (getTop("#actual-content") <= minShrinkHeight) {
             $(".home").css("font-size", "20px");
 
             $(".tab").css("opacity", 1);
@@ -158,20 +171,14 @@ function blink() {
 
 
 }
-function getTop(identifier) {
-    return $(identifier)[0].getBoundingClientRect().top;
+function getTop(identifier, i=0) {
+    return $(identifier)[i].getBoundingClientRect().top;
 }
 function getBottom(identifier) {
     return $(identifier)[0].getBoundingClientRect().bottom;
 }
-async function coolAnimation() {
-    $(".container").css("opacity", 0);
-    let c = $(".container");
-    for (let i = 0; i < c.length; i++) {
-        await wait(100);
-
-        c[i].style.opacity = 1;
-    }
+async function showContainer(i) {
+    $(".container")[i].classList.add("show");
 }
 function wait(m) {
     return new Promise((re) => {

@@ -4,8 +4,6 @@ header {
     top: 0px;
     left: 0px;
     width: 100%;
-    /* min-height: 90px; */
-    /* background-color: rgb(112, 21, 21); */
     display: flex;
     justify-content: center;
     height: 100vh;
@@ -76,6 +74,34 @@ disclaimer{
     bottom: 0;
     left: 0;
     transform: translate(0px, 100%);
+}
+about-text{
+    display: inline;
+    /* font-size: 30px; */
+    color: #03A9F4;
+    position: relative;
+    transition: .5s all;
+
+}
+about-text[txt]::after{
+    height: 0em;
+    top: 100%;
+    position: absolute;
+    left: 0;
+    font-size: 20px;
+    overflow: hidden;
+    transition: .5s all;
+    content: attr(txt);
+    white-space: nowrap;
+}
+
+about-text:hover{
+    cursor: pointer;
+    color: #2196f3;
+}
+about-text:hover::after{
+    color: white;
+    height: 1em;
 }
 .centered{
     text-align: center;
@@ -150,11 +176,12 @@ header.splash{
     left: 0;
     position: absolute;
 }
-#actualContent {
+#actual-content {
     min-height: 100vh;
     margin-top: 100vh;
     background: white;
     transition: none;
+    overflow: hidden;
 }
 .title {
     text-align: center;
@@ -232,15 +259,26 @@ header.splash{
     background: transparent;
     transition: .4s all;
     opacity: 0;
+    transform: translate(0,50px);
     /* box-shadow: 5px 5px 10px white; */
+}
+.container.show{
+    opacity: 1;
+    transform: translate(0,0);
+
 }
 .container-content{
     font-family: "segoe UI";
-    margin: 50px 30px;
+    margin: 50px auto;
+    width: 90%;
     /* background: white; */
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+    justify-content: center;
+}
+.container-content.less-margin{
+    margin: 10px auto;
 }
 
 .biggify {
@@ -262,6 +300,9 @@ header.splash{
 }
 .container.half{
     height: 50vh;
+}
+.container.auto{
+    height: auto;
 }
 .container.gray{
     background-color: rgb(187, 187, 187);
@@ -325,7 +366,6 @@ header.splash{
     /* width: 50vw; */
     position: relative;
     flex: 1 1;
-    /* flex: 1 1 2 3 5 8 13 21 34 as n --> 3, fib-->big */
 }
 .text-container.wide{
     width: 90vw;
@@ -345,6 +385,7 @@ header.splash{
     margin: 0 30px;
     font-size: 30px;
     transition: .25s all;
+    text-align: center;
     /* background: white; */
 }
 .tile:hover{
@@ -355,6 +396,14 @@ header.splash{
     display: flex;
     /* width: 90vw; */
     text-align: left;
+}
+.bottom-bar{
+    width: 100vw;
+}
+.bottom-bar.centered{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .fas, .far{
     font-size: 50px;
@@ -419,9 +468,3 @@ header.splash{
     cursor: pointer;
     border-color: gray;
 }
-
-/* #x{
-
-    font-size: 20px;
-} */
-
