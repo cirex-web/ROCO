@@ -110,8 +110,8 @@ function updateTabUnderline() {
 async function changeTab() {
     nextContainer = 0;
     let name = window.location.hash.replace("#!", "");
-    console.log("changing to " + name);
-    console.log(subPage + name + ".html");
+    // console.log("changing to " + name);
+    // console.log(subPage + name + ".html");
     $("#actual-content").load(subPage + name + ".html");
     curWin = name;
     await wait(100);
@@ -153,7 +153,6 @@ async function updateTabs() {
 }
 
 function clear() {
-    console.log("running");
     $(".tab").css("opacity", 0);
     $(".home").css("opacity", 0);
 
@@ -172,11 +171,9 @@ function blink() {
 
 }
 function getTop(identifier, i=0) {
-    return $(identifier)[i].getBoundingClientRect().top;
+    return $(identifier)[i]?$(identifier)[i].getBoundingClientRect().top:undefined;
 }
-function getBottom(identifier) {
-    return $(identifier)[0].getBoundingClientRect().bottom;
-}
+
 async function showContainer(i) {
     $(".container")[i].classList.add("show");
 }
