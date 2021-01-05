@@ -394,7 +394,7 @@ header.splash{
 }
 .tile-container{
     display: flex;
-    /* width: 90vw; */
+    margin: 50px 0;
     text-align: left;
 }
 .bottom-bar{

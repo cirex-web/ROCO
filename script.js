@@ -27,7 +27,8 @@ $(document).ready(async () => {
     $(".splash-text").css("transform","none");
 
     $(window).scroll(() => {
-        adjustToScroll();
+        adjustToScroll($(window).scrollTop() + $(window).height()>=$(document).height()-20);
+        console.log($(window).scrollTop() + $(window).height(),$(document).height()-20);
         // move /= 5;
         // $("#splash-background").css("transform", "translate(0,-" + move + "px)");
     });
@@ -36,7 +37,7 @@ $(document).ready(async () => {
     beginText();
 
 });
-function adjustToScroll(){
+function adjustToScroll(bottom){
 
     updateTabs();
     let move = Math.min($(window).height(), $(window).scrollTop());
@@ -44,13 +45,13 @@ function adjustToScroll(){
     $("#splash-background").css("opacity", opacity);
     $(".textFitted").css("opacity",opacity);
 
-    if(nextContainer!=-1&&getTop(".container",nextContainer)<=.75*$(window).height()){
+    if(nextContainer!=-1&&(bottom||getTop(".container",nextContainer)<=.75*$(window).height())){
         showContainer(nextContainer);
         nextContainer++;
         if(nextContainer==$(".container").length){
             nextContainer = -1;
         }
-        adjustToScroll();
+        adjustToScroll(bottom);
     }
 }
 async function beginText(){
